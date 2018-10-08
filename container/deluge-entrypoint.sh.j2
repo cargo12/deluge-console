@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+/usr/bin/deluge-console "connect {{ ansible_env.DELUGE_CLIENT_HOSTNAME }}:{{ ansible_env.DELUGE_CLIENT_PORT }} {{ ansible_env.DELUGE_CLIENT_USERNAME }} {{ ansible_env.DELUGE_CLIENT_PASSWORD }}"

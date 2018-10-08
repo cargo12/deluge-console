@@ -1,0 +1,34 @@
+name: $(build.SourceVersion)$(Rev:.r)
+
+pool:
+  vmImage: 'Ubuntu 16.04'
+
+variables:
+  tagLatest:  'illallangi/$(system.TeamProject):latest'
+  tagVersion: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
+
+steps:
+- task: Docker@1
+  displayName: 'Build an image'
+  inputs:
+    imageName: '$(tagLatest)'
+- task: Docker@1
+  displayName: 'Build an image'
+  inputs:
+    imageName: '$(tagVersion)'
+- task: Docker@1
+  displayName: Login
+  inputs:
+    command: login
+    containerregistrytype: 'Container Registry'
+    dockerRegistryEndpoint: dockerhub
+- task: Docker@1
+  displayName: 'Push an image'
+  inputs:
+    command: 'push'
+    imageName: '$(tagLatest)'
+- task: Docker@1
+  displayName: 'Push an image'
+  inputs:
+    command: 'push'
+    imageName: '$(tagVersion)'
